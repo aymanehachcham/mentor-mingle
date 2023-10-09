@@ -23,9 +23,6 @@ repos:
         stages: [manual,commit]
       - id: destroyed-symlinks
         stages: [manual,commit]
-      - id: no-commit-to-branch
-        stages: [commit]
-        args: ["--branch", "main"]
       - id: check-shebang-scripts-are-executable
         stages: [commit]
       - id: check-toml
