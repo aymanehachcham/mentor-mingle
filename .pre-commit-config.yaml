@@ -72,6 +72,8 @@ repos:
                       import-error,
                       missing-module-docstring,
                       too-few-public-methods,
+                      unnecessary-pass,
+                      invalid-name,
                       duplicate-code,
                       logging-fstring-interpolation
           - "--py-version=3.10"
