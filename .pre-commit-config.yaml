@@ -71,6 +71,7 @@ repos:
             --disable=no-name-in-module,
                       import-error,
                       missing-module-docstring,
+                      too-few-public-methods,
                       duplicate-code,
                       logging-fstring-interpolation
           - "--py-version=3.10"
