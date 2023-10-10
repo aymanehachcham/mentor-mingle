@@ -1,32 +1,52 @@
-
-from dotenv import load_dotenv
 import logging
-import openai
 import os
+from pathlib import Path
+
+import openai
+from dotenv import load_dotenv
+
+from .config import Config
+from .persona.base import BasePersona
 
 load_dotenv()
 logger = logging.getLogger(__name__)
 
-def openai_feedback(user_prompt: str) -> str:
-    """
-    This function is used to engage in feedback with the user.
-    The user will be asked to provide feedback on the generated transcript.
-    """
-    openai.api_key = os.getenv('OPENAI_KEY')
-    logger.info('OPENAI API is running for feedback...\n\n')
-    completion = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo-0613",
-        temperature=0.2,
-        messages=[
-            {
-                "role": "system",
-                "content": "Your are a interviewer and you will be asked questions about an interview test case."
-            },
-            {"role": "user", "content": f"User: {user_prompt}"},
-        ],
-        max_tokens=150
-    )
-    return completion.choices[0]['message']['content']
 
+class ChatHandler:
+    """Handler for chat with GPT-3"""
 
+    def __init__(
+        self,
+        persona: BasePersona,
+    ):
+        """Initialize the chat handler"""
+        openai.api_key = os.getenv("OPENAI_KEY")
+        self.agent = persona
 
+        # Load config
+        self.model = Config.from_toml(Path("../config.toml")).models.gpt3
+
+    def stream_chat(self, user_prompt: str):
+        """
+        Stream a chat with GPT-3
+
+        Args:
+            user_prompt (str): The user's prompt
+
+        Returns:
+            None
+        """
+        completion = openai.ChatCompletion.create(
+            model=self.model.name,
+            messages=[
+                {"role": "system", "content": self.agent.persona},
+                {"role": "user", "content": f"User: {user_prompt}" f"\n{self.agent.answer_format}"},
+            ],
+            **self.model.config.dict(),
+        )
+        for chunk in completion:
+            content = chunk.choices[0].delta.get("content", "")
+            if content == "":
+                continue
+            end_char = "\n" if "." in content else ""
+            print(content, end=end_char, flush=True)
