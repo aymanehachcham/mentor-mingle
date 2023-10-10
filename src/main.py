@@ -1,11 +1,10 @@
+from mentor_mingle.llm_handler import ChatHandler
+from mentor_mingle.persona.mentor import Mentor
 
-from mentor_mingle.llm_handler import openai_feedback
-
-if __name__ == '__main__':
-    "Main conversational loop"
+if __name__ == "__main__":
+    mentor = Mentor()
+    handler = ChatHandler(persona=mentor)
 
     while True:
-        user_input = input('User: ')
-        if user_input == 'quit':
-            break
-        print(openai_feedback(user_input))
+        user_prompt = input("\nUser: ")
+        handler.stream_chat(user_prompt)
