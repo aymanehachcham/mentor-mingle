@@ -24,7 +24,7 @@ class TestChatHandler:
 
     def mock_response_generator(self, *args, **kwargs) -> Generator[OpenAIObject, None, None]:
         """
-        Mock the response generator
+        Mock the response generator, Another update.
 
         Args:
             None
