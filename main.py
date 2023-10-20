@@ -1,5 +1,5 @@
-from src.mentor_mingle.llm_handler import ChatHandler
-from src.mentor_mingle.persona.mentor import Mentor
+from mentor_mingle.llm_handler import ChatHandler
+from mentor_mingle.persona.mentor import Mentor
 
 if __name__ == "__main__":
     mentor = Mentor()
@@ -7,4 +7,6 @@ if __name__ == "__main__":
 
     while True:
         user_prompt = input("\nUser: ")
-        handler.stream_chat(user_prompt)
+        for res in handler.stream_chat(user_prompt):
+            end_char = "\n" if "." in res else ""
+            print(res, end=end_char, flush=True)

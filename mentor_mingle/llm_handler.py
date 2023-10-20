@@ -4,6 +4,7 @@ from pathlib import Path
 
 import openai
 from dotenv import load_dotenv
+from typing import Generator
 
 from .config import Config
 from .persona.base import BasePersona
@@ -26,7 +27,7 @@ class ChatHandler:
         # Load config
         self.model = Config.from_toml(Path("../config.toml")).models.gpt3
 
-    def stream_chat(self, user_prompt: str):
+    def stream_chat(self, user_prompt: str) -> Generator[str, None, None]:
         """
         Stream a chat with GPT-3
 
@@ -42,11 +43,11 @@ class ChatHandler:
                 {"role": "system", "content": self.agent.persona},
                 {"role": "user", "content": f"User: {user_prompt}" f"\n{self.agent.answer_format}"},
             ],
-            **self.model.config.dict(),
+            **self.model.config.model_dump(),
         )
         for chunk in completion:
+            print(chunk)
             content = chunk.choices[0].delta.get("content", "")
-            if content == "":
-                continue
-            end_char = "\n" if "." in content else ""
-            print(content, end=end_char, flush=True)
+            if content != "":
+                yield content
+

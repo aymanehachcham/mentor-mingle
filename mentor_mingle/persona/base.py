@@ -1,6 +1,6 @@
-from abc import ABC, abstractmethod
 
-from src.mentor_mingle.tot.schema import Thought
+from abc import ABC, abstractmethod
+from ..tot.schema import Thought
 
 
 class BasePersona(ABC):

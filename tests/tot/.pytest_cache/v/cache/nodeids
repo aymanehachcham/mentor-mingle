@@ -1,0 +1,4 @@
+[
+  "test_schema.py::TestThought::test_add",
+  "test_schema.py::TestThought::test_pop"
+]
