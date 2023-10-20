@@ -1,5 +1,5 @@
-from mentor_mingle.llm_handler import ChatHandler
-from mentor_mingle.persona.mentor import Mentor
+from src.mentor_mingle.llm_handler import ChatHandler
+from src.mentor_mingle.persona.mentor import Mentor
 
 if __name__ == "__main__":
     mentor = Mentor()

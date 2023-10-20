@@ -1,4 +1,4 @@
-from tot.schema import Thought
+from mentor_mingle.tot import Thought
 
 
 class TestThought:
