@@ -1,11 +1,11 @@
-
-from mentor_mingle import ChatHandler
-from mentor_mingle.persona.mentor import Mentor
-from mentor_mingle import Gpt, CFGGpt
+from typing import Generator
 from unittest.mock import MagicMock
+
 import openai
 from openai.openai_object import OpenAIObject
-from typing import Generator
+
+from mentor_mingle import CFGGpt, ChatHandler, Gpt
+from mentor_mingle.persona.mentor import Mentor
 
 
 class TestChatHandler:
@@ -32,10 +32,7 @@ class TestChatHandler:
         Returns:
             Generator[OpenAIObject, None, None]: A generator of OpenAIObjects
         """
-        mock_data = [
-            {"choices": [{"delta": {"content": "Hello"}}]},
-            {"choices": [{"delta": {"content": "Welcome!"}}]}
-        ]
+        mock_data = [{"choices": [{"delta": {"content": "Hello"}}]}, {"choices": [{"delta": {"content": "Welcome!"}}]}]
         for data in mock_data:
             mock_obj = MagicMock()
             choice_mock = MagicMock()
@@ -48,7 +45,7 @@ class TestChatHandler:
         llm = ChatHandler(Mentor())
 
         # Patch the API call to return mock_response
-        mocker.patch.object(openai.ChatCompletion, 'create', side_effect=self.mock_response_generator)
+        mocker.patch.object(openai.ChatCompletion, "create", side_effect=self.mock_response_generator)
 
         responses = list(llm.stream_chat("Hello, Mentor!"))
         assert responses == ["Hello", "Welcome!"]
