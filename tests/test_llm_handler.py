@@ -5,6 +5,7 @@ from mentor_mingle import Gpt, CFGGpt
 from unittest.mock import MagicMock
 import openai
 from openai.openai_object import OpenAIObject
+from typing import Generator
 
 
 class TestChatHandler:
@@ -21,7 +22,16 @@ class TestChatHandler:
         assert isinstance(handler.agent, Mentor)
         assert isinstance(handler.model.config, CFGGpt)
 
-    def mock_response_generator(self, *args, **kwargs):
+    def mock_response_generator(self, *args, **kwargs) -> Generator[OpenAIObject, None, None]:
+        """
+        Mock the response generator
+
+        Args:
+            None
+
+        Returns:
+            Generator[OpenAIObject, None, None]: A generator of OpenAIObjects
+        """
         mock_data = [
             {"choices": [{"delta": {"content": "Hello"}}]},
             {"choices": [{"delta": {"content": "Welcome!"}}]}

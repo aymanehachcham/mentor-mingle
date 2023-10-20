@@ -90,6 +90,7 @@ repos:
         name: pytest
         stages: [ commit ]
         language: system
+        language_version: python3
         pass_filenames: false  # pytest will discover tests on its own
         entry: pytest
 
