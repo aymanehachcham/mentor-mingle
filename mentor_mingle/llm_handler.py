@@ -1,13 +1,14 @@
 import logging
 import os
 from pathlib import Path
+from typing import Generator
 
 import openai
 from dotenv import load_dotenv
-from typing import Generator
 
 from .config import Config
 from .persona.base import BasePersona
+from .utils import find_closest
 
 load_dotenv()
 logger = logging.getLogger(__name__)
@@ -25,7 +26,7 @@ class ChatHandler:
         self.agent = persona
 
         # Load config
-        self.model = Config.from_toml(Path("../config.toml")).models.gpt3
+        self.model = Config.from_toml(Path(find_closest("config.toml"))).models.gpt3
 
     def stream_chat(self, user_prompt: str) -> Generator[str, None, None]:
         """
@@ -50,4 +51,3 @@ class ChatHandler:
             content = chunk.choices[0].delta.get("content", "")
             if content != "":
                 yield content
-
