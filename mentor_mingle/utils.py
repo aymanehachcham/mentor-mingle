@@ -1,7 +1,17 @@
 import os
 
 
-def find_project_root(filename=None):
+def find_project_root(filename=None) -> str:
+    """
+    Find the root folder of the project.
+
+    Args:
+        filename (str): The name of the file to look for in the root folder.
+
+    Returns:
+        str: The path of the root folder.
+
+    """
     # Get the path of the file that is being executed
     current_file_path = os.path.abspath(os.getcwd())
 
@@ -16,9 +26,8 @@ def find_project_root(filename=None):
                 break
 
         # Most common ways to identify a project root folder
-        if (
-            os.path.isfile(os.path.join(root_folder, "pyproject.toml"))
-            or os.path.isfile(os.path.join(root_folder, "config.toml"))
+        if os.path.isfile(os.path.join(root_folder, "pyproject.toml")) or os.path.isfile(
+            os.path.join(root_folder, "config.toml")
         ):
             break
 
@@ -31,5 +40,14 @@ def find_project_root(filename=None):
     return root_folder
 
 
-def find_closest(filename):
+def find_closest(filename: str) -> str:
+    """
+    Find the closest file with the given name in the project root folder.
+
+    Args:
+        filename (str): The name of the file to look for in the root folder.
+
+    Returns:
+        str: The path of the file.
+    """
     return os.path.join(find_project_root(filename), filename)

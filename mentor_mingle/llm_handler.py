@@ -42,7 +42,10 @@ class ChatHandler:
             model=self.model.name,
             messages=[
                 {"role": "system", "content": self.agent.persona},
-                {"role": "user", "content": f"User: {user_prompt}" f"\n{self.agent.answer_format}"},
+                {
+                    "role": "user",
+                    "content": f"User: {user_prompt}" f"\n{self.agent.answer_format}",
+                },
             ],
             **self.model.config.model_dump(),
         )

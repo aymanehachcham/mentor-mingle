@@ -1,5 +1,5 @@
-
 from abc import ABC, abstractmethod
+
 from ..tot.schema import Thought
 
 
