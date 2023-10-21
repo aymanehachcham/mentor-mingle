@@ -75,7 +75,8 @@ repos:
                       unnecessary-pass,
                       invalid-name,
                       duplicate-code,
-                      logging-fstring-interpolation
+                      logging-fstring-interpolation,
+                      unused-argument,
           - "--py-version=3.10"
           - "--min-public-methods=1"
           - "--max-line-length=120"

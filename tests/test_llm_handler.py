@@ -22,7 +22,7 @@ class TestChatHandler:
         assert isinstance(handler.agent, Mentor)
         assert isinstance(handler.model.config, CFGGpt)
 
-    def mock_response_generator(self, *args, **kwargs) -> Generator[OpenAIObject, None, None]:
+    def mock_response_generator(self, **kwargs) -> Generator[OpenAIObject, None, None]:
         """
         Mock the response generator, Another update.
 
@@ -41,6 +41,15 @@ class TestChatHandler:
             yield mock_obj
 
     def test_stream_chat(self, mocker: MagicMock):
+        """
+        Test the stream_chat method of the ChatHandler class.
+
+        Args:
+            mocker (MagicMock): The mocker object
+
+        Returns:
+            None
+        """
         # Create a mock instance of your class
         llm = ChatHandler(Mentor())
 
