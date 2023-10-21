@@ -1,0 +1,64 @@
+site_name: Mentor Mingle
+
+theme:
+  name: material
+  font:
+    text: Roboto
+    code: Roboto Mono
+  icon:
+    logo: simple/bosch
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.prune
+    - navigation.path
+    - navigation.top
+    - navigation.tracking
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.prettify
+
+  language: en
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+      primary: teal
+      accent: purple
+    - scheme: slate
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+      primary: indigo
+      accent: deep purple
+
+plugins:
+  - search
+  - mkdocstrings
+
+extra_css:
+  - assets/custom.css
+
+nav:
+  - Home: index.md
+  - Mentor Mingle:
+      - LLM Handler: mentor_mingle/llm_handler.md
+  - Personas:
+      - Personification: persona/personification.md
+  - Tree of Thought:
+        - Working Process: tot/process.md
+        - Config Schema: tot/config.md
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - admonition
