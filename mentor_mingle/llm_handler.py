@@ -47,7 +47,6 @@ class ChatHandler:
             **self.model.config.model_dump(),
         )
         for chunk in completion:
-            print(chunk)
             content = chunk.choices[0].delta.get("content", "")
             if content != "":
                 yield content
