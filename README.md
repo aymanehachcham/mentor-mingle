@@ -19,6 +19,7 @@ git clone https://github.com/aymanehachcham/mentor-mingle.git
 cd mentor-mingle
 pip install -r requirements.txt
 ```
-## Documentation
+## 📖 Documentation
 
-Will follow shortly.
+The documentation for the whole project is available [here](https://aymanehachcham.github.io/mentor-mingle/).
+
