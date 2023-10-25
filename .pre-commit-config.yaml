@@ -92,7 +92,7 @@ repos:
         stages: [ commit ]
         language: system
         pass_filenames: false  # pytest will discover tests on its own
-        entry: poetry run pytest
+        entry: ./run_tests_in_docker.sh
 
   - repo: https://github.com/PyCQA/bandit
     rev: 1.7.5
