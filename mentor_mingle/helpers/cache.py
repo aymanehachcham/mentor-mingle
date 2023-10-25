@@ -1,24 +1,31 @@
 import os
+
 import redis
 from dotenv import load_dotenv
-from typing import Union, Any
 
 load_dotenv()
 
 
 class Cache:
+    """
+    A class to interact with the Redis cache
+    """
+
     def __init__(
-            self,
-            host: str = os.environ.get("REDIS_HOST"),
-            port: str = os.environ.get("REDIS_PORT"),
-            client=None,
+        self,
+        host: str = os.environ.get("REDIS_HOST"),
+        port: str = os.environ.get("REDIS_PORT"),
+        client=None,
     ):
+        """
+        Initialize the Cache class
+        """
         # Set up the Redis client
         try:
             self.cache_client = client or redis.Redis(host=host, port=port, decode_responses=True)
             self.cache_client.ping()
-        except redis.exceptions.ConnectionError:
-            raise ConnectionError("Could not connect to Redis Cache")
+        except Exception as e:
+            raise ConnectionError("Could not connect to Redis Cache") from e
 
     def get_val(self, key: str) -> str:
         """
@@ -56,4 +63,3 @@ class Cache:
             None
         """
         self.cache_client.hset(key, mapping=map)
-

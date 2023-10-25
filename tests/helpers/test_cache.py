@@ -1,19 +1,31 @@
-import os
+import fakeredis
+import pytest
 
 from mentor_mingle.helpers.cache import Cache
-import pytest
-import fakeredis
+
 
 class TestCache:
+    """
+    Test the Cache class.
+    """
 
     @pytest.fixture
-    def fake_redis(self):
-        return fakeredis.FakeStrictRedis()
+    def fake_redis(self) -> fakeredis.FakeStrictRedis:
+        """
+        Create a fake Redis client.
 
+        Returns: FakeRedis client
+        """
+        return fakeredis.FakeStrictRedis()
 
     def test_get(self, fake_redis):
         """
         Test the get method of the Cache class.
+
+        Args:
+            fake_redis (fakeredis.FakeStrictRedis): A fake Redis client
+
+        Returns: None
         """
         cache = Cache(client=fake_redis)
         cache.cache_client.set("test", "test")
@@ -23,21 +35,27 @@ class TestCache:
     def test_get_map(self, fake_redis):
         """
         Test the get_map method of the Cache class.
+
+        Args:
+            fake_redis (fakeredis.FakeStrictRedis): A fake Redis client
+
+        Returns: None
         """
         cache = Cache(client=fake_redis)
-        cache.cache_client.hset("test_dict", mapping={
-            "test_prompt": "Hello Assistant!",
-            "test_response": "Hello User!"
-        })
-        assert cache.get_map("test_dict") == {
-            b"test_prompt": b"Hello Assistant!",
-            b"test_response": b"Hello User!"
-        }
+        cache.cache_client.hset(
+            "test_dict", mapping={"test_prompt": "Hello Assistant!", "test_response": "Hello User!"}
+        )
+        assert cache.get_map("test_dict") == {b"test_prompt": b"Hello Assistant!", b"test_response": b"Hello User!"}
         cache.cache_client.delete("test_dict")
 
     def test_set_map(self, fake_redis):
         """
         Test the set_map method of the Cache class.
+
+        Args:
+            fake_redis (fakeredis.FakeStrictRedis): A fake Redis client
+
+        Returns: None
         """
         cache = Cache(client=fake_redis)
         cache.set_map("test", {"key": "val"})
