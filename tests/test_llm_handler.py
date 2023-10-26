@@ -13,11 +13,11 @@ class TestChatHandler:
     Test the ChatHandler class.
     """
 
-    def test_chat_handler_init(self):
+    def test_chat_handler_init(self, fake_redis):
         """
         Test the stream_chat method of the ChatHandler class.
         """
-        handler = ChatHandler(Mentor())
+        handler = ChatHandler(cache_client=fake_redis)
         assert isinstance(handler.model, Gpt)
         assert isinstance(handler.agent, Mentor)
         assert isinstance(handler.model.config, CFGGpt)
@@ -40,7 +40,7 @@ class TestChatHandler:
             mock_obj.choices = [choice_mock]
             yield mock_obj
 
-    def test_stream_chat(self, mocker: MagicMock):
+    def test_stream_chat(self, mocker: MagicMock, fake_redis):
         """
         Test the stream_chat method of the ChatHandler class.
 
@@ -51,7 +51,7 @@ class TestChatHandler:
             None
         """
         # Create a mock instance of your class
-        llm = ChatHandler(Mentor())
+        llm = ChatHandler(cache_client=fake_redis)
 
         # Patch the API call to return mock_response
         mocker.patch.object(openai.ChatCompletion, "create", side_effect=self.mock_response_generator)

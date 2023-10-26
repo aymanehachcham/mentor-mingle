@@ -1,5 +1,3 @@
-import fakeredis
-import pytest
 
 from mentor_mingle.helpers.cache import Cache
 
@@ -8,15 +6,6 @@ class TestCache:
     """
     Test the Cache class.
     """
-
-    @pytest.fixture
-    def fake_redis(self) -> fakeredis.FakeStrictRedis:
-        """
-        Create a fake Redis client.
-
-        Returns: FakeRedis client
-        """
-        return fakeredis.FakeStrictRedis()
 
     def test_get(self, fake_redis):
         """
