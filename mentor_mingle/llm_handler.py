@@ -1,10 +1,10 @@
 import logging
 import os
-import redis
 from pathlib import Path
-from typing import Generator, Optional, Union, Any
+from typing import Any, Generator, Optional, Union
 
 import openai
+import redis
 from dotenv import load_dotenv
 
 from .config import Config
@@ -34,7 +34,7 @@ class ChatHandler:
 
         # Initialize memory
         if self._memory is None:
-            self._memory = Cache(cache_client)
+            self._memory = Cache(client=cache_client)
 
     @property
     def memory(self) -> Cache:

@@ -63,3 +63,15 @@ class Cache:
             None
         """
         self.cache_client.hset(key, mapping=map)
+
+    def delete(self, key: str) -> None:
+        """
+        Delete a key from the cache
+
+        Args:
+            key (str): The key to delete
+
+        Returns:
+            None
+        """
+        self.cache_client.delete(key)

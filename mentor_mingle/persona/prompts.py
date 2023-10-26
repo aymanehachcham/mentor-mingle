@@ -10,11 +10,7 @@ You will be testing their technical expertise but also their ability to think cr
 """  # noqa: E501
 
 answer_format = """
-Your answer should be always of organized and structured in the following way:
-
-1. State the problem
-2. State the solution
-3. State the result
+Your answer should be always be short, concise, and to the point.
 """  # noqa: E501
 
 introductory_case = """
