@@ -27,4 +27,4 @@ jobs:
       run: docker-compose -f "docker-compose.yaml" up -d --build
 
     - name: Run Tests
-      run: docker-compose exec -T app-service pytest
+      run: docker-compose exec -T app-service pytest -vv
