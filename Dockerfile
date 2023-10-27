@@ -5,17 +5,16 @@ FROM python:3.10-slim
 WORKDIR /app
 
 # Install required system dependencies
-RUN pip install poetry
+RUN pip3 install poetry
 
 # Configure the virtual env to be created in the project directory
-RUN poetry config virtualenvs.create true \
-    && poetry config virtualenvs.in-project true
+RUN poetry config virtualenvs.create false
 
 COPY pyproject.toml poetry.lock ./
 
 RUN poetry install  --no-interaction \
                     --no-ansi \
-                    --without docs || (echo "Poetry install failed" && exit 1)
+                    --without docs
 
 # Modify PATH to use poetry's virtual environment
 ENV PATH="/app/.venv/bin:$PATH"
