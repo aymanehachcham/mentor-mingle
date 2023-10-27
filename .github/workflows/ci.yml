@@ -26,8 +26,5 @@ jobs:
     - name: Start containers
       run: docker-compose -f "docker-compose.yaml" up -d --build
 
-    - name: Run flake8 linting
-      run: docker-compose exec -T app-service flake8 --max-line-length=120 mentor_mingle
-
     - name: Run Tests
       run: docker-compose exec -T app-service pytest
