@@ -15,7 +15,7 @@ COPY pyproject.toml poetry.lock ./
 
 RUN poetry install  --no-interaction \
                     --no-ansi \
-                    --without docs \
+                    --without docs || (echo "Poetry install failed" && exit 1)
 
 # Modify PATH to use poetry's virtual environment
 ENV PATH="/app/.venv/bin:$PATH"
